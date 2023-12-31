@@ -1,0 +1,30 @@
+---
+import type { CollectionEntry } from "astro:content";
+import Header from "../components/Header.astro";
+
+type Props = {
+	next?: CollectionEntry<'doc'>,
+	prev?: CollectionEntry<'doc'>,
+  isIndex?: boolean,
+};
+
+const {prev, next, isIndex = false} = Astro.props;
+
+const prevLink = prev ? {
+  slug: prev.slug,
+  title: prev.data.title,
+} : undefined;
+
+const nextLink = next ? {
+  slug: next.slug,
+  title: next.data.title,
+} : undefined;
+
+---
+
+<body class="px-4 transition-colors">
+  <Header prev={prevLink} next={nextLink} logoSize={isIndex ? 'large' : 'small'}/>
+  <main class="flex flex-col pt-12 pb-4">
+    <slot />
+  </main>
+</body>

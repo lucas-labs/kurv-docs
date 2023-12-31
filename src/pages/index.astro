@@ -1,0 +1,48 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Body from "../layouts/Body.astro";
+import Html from "../layouts/Html.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import { getCollection } from "astro:content";
+
+const posts = (await getCollection("doc")).sort(
+  (a, b) => a.data.order - b.data.order
+);
+---
+
+<Html title={SITE_TITLE} description={SITE_DESCRIPTION}>
+  <Body isIndex={true}>
+    <div class="flex flex-col items-center transition-[font-size]">
+      <section class="max-w-[70ch]">
+        <p class="pb-12 text-zinc-700 dark:text-zinc-300 text-center">
+          <b class="font-serif">kurv</b> is a <span class="font-extralight">lightweight</span> process manager, mainly 
+          for Node.js and Python applications, although it can be used for any kind of app.
+          It's written in Rust. It daemonizes your apps so that they can run in the background.
+          It also restarts them if they crash.
+        </p>
+
+        <hr class="border-zinc-200 dark:border-zinc-800/20 mb-12" />
+
+        <ul class="flex flex-col gap-y-8">
+          {
+            posts.map((post) => (
+              <li class="p-4 bg-zinc-50 dark:bg-zinc-900/20 hover:bg-zinc-100 dark:hover:bg-zinc-900/40 rounded-lg transition-colors">
+                <a href={`${post.slug}`}>
+                  <h1
+                    transition:name={`article-title-${post.slug}`}
+                    class="title text-2xl mb-2 flex items-center gap-x-2"
+                  >
+                    {post.data.title}
+                  </h1>
+                  <p transition:name={`article-content-${post.slug}`} class="text-zinc-700 dark:text-zinc-300">
+                    {post.data.description}
+                  </p>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+    </div>
+  </Body>
+</Html>

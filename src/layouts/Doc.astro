@@ -1,0 +1,30 @@
+---
+import type { CollectionEntry } from "astro:content";
+import Body from "./Body.astro";
+import Html from "./Html.astro";
+
+type Props = {
+	current: CollectionEntry<'doc'>,
+	next: CollectionEntry<'doc'>,
+	prev: CollectionEntry<'doc'>,
+};
+
+const { current, prev, next } = Astro.props;
+
+const { title, description } = current.data;
+---
+
+<Html title={`kurv » ${title.toLowerCase()}`} description={description}>
+  <Body prev={prev} next={next}>
+    <article class="flex flex-col items-center">
+      <div
+        class="prose [&>*]:text-pretty lg:prose-xl w-full md:w-auto max-w-[70ch] prose-zinc dark:prose-invert transition-[font-size] duration-500"
+      >
+        <div class="title">
+          <h1 transition:name={`article-title-${current.slug}`}>{title}</h1>
+        </div>
+        <slot />
+      </div>
+    </article>
+  </Body>
+</Html>

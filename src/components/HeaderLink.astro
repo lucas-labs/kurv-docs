@@ -1,0 +1,33 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+type Props = HTMLAttributes<"a"> & {
+  href?: string;
+  title?: string;
+  type: "next" | "prev";
+};
+
+const { href, class: className, type, title, ...props } = Astro.props;
+
+const { pathname } = Astro.url;
+const isActive = href === pathname || href === pathname.replace(/\/$/, "");
+---
+
+{href ? <a
+  href={href}
+  class:list={[className, { active: isActive }, {
+    'text-start': type === 'prev',
+    'text-end': type === 'next',
+  }]}
+  title={title}
+  {...props}
+  class="flex-1"
+>
+  {type === 'prev' && (
+	  <span>&larr; </span>
+  )}
+  {title ?? <slot />}
+  {type === 'next' && (
+	  <span> &rarr;</span>
+  )}
+</a> : <div class="flex-1"></div>}

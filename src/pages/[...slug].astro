@@ -1,0 +1,34 @@
+---
+import { type CollectionEntry, getCollection } from "astro:content";
+import Doc from "../layouts/Doc.astro";
+
+export async function getStaticPaths() {
+  const docs = (await getCollection("doc")).sort(
+    (a, b) => a.data.order - b.data.order
+  );
+
+  return docs.map((doc, i) => ({
+    params: { slug: doc.slug },
+    props: {
+      current: doc,
+      next: docs[i + 1] || null,
+      prev: docs[i - 1] || null,
+    },
+  }));
+}
+
+type Props = {
+  current: CollectionEntry<"doc">;
+  next: CollectionEntry<"doc">;
+  prev: CollectionEntry<"doc">;
+};
+
+const doc = Astro.props;
+const { Content } = await doc.current.render();
+---
+
+<Doc {...doc}>
+  <div transition:name={`article-content-${doc.current.slug}`}>
+    <Content />
+  </div>
+</Doc>
