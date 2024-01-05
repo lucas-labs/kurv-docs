@@ -1,9 +1,10 @@
 ---
-import BaseHead from "../components/BaseHead.astro";
 import Body from "../layouts/Body.astro";
 import Html from "../layouts/Html.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import { getCollection } from "astro:content";
+import Github from "../components/icons/Github.astro";
+import Cargo from "../components/icons/Cargo.astro";
 
 const posts = (await getCollection("doc")).sort(
   (a, b) => a.data.order - b.data.order
@@ -13,13 +14,18 @@ const posts = (await getCollection("doc")).sort(
 <Html title={SITE_TITLE} description={SITE_DESCRIPTION}>
   <Body isIndex={true}>
     <div class="flex flex-col items-center transition-[font-size]">
-      <section class="max-w-[70ch]">
-        <p class="pb-12 text-zinc-700 dark:text-zinc-300 text-center">
+      <section class="max-w-[70ch] flex flex-col">
+        <p class="mb-12 text-zinc-700 dark:text-zinc-300 text-center">
           <b class="font-serif">kurv</b> is a <span class="font-extralight">lightweight</span> process manager, mainly 
           for Node.js and Python applications, although it can be used for any kind of app.
           It's written in Rust. It daemonizes your apps so that they can run in the background.
           It also restarts them if they crash.
         </p>
+
+        <nav class="flex justify-center items-center mb-12 gap-x-8">
+          <Github height={32}  />
+          <Cargo height={32} />
+        </nav>
 
         <hr class="border-zinc-200 dark:border-zinc-800/20 mb-12" />
 

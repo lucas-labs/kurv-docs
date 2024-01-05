@@ -13,11 +13,13 @@ const {prev, next, isIndex = false} = Astro.props;
 const prevLink = prev ? {
   slug: prev.slug,
   title: prev.data.title,
+  shortTitle: prev.data['short-title'],
 } : undefined;
 
 const nextLink = next ? {
   slug: next.slug,
   title: next.data.title,
+  shortTitle: next.data['short-title'],
 } : undefined;
 
 ---

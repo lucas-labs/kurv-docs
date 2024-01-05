@@ -1,0 +1,20 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+type Props = HTMLAttributes<"svg">
+
+const props = Astro.props;
+---
+
+<a 
+    href="https://crates.io/crates/kurv"
+    target="_blank"
+    class="fill-zinc-900 dark:fill-white hover:fill-zinc-700 dark:hover:fill-zinc-300 transition-colors"
+>
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+        <path d="M32,0H45V15H19V0ZM19,49V64H45V49H19ZM0,0H15V64H0ZM5.5,10h4V6h-4Zm0,48h4V54h-4ZM64,0V64H49V0ZM58.5,54h-4v4h4Zm0-48h-4v4h4ZM45,27.55023V19H37L19,37v8h8.55023ZM31.55023,19H19V31.55023ZM33,45H45V33Z"/>
+    </svg>
+
+    <span class="sr-only">crates.io package</span>
+</a>
+  

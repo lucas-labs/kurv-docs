@@ -1,0 +1,110 @@
+---
+import CautionIcon from './icons/alert/CautionIcon.astro';
+import ImportantIcon from './icons/alert/ImportantIcon.astro';
+import NoteIcon from './icons/alert/NoteIcon.astro';
+import TipIcon from './icons/alert/TipIcon.astro';
+import WarningIcon from './icons/alert/WarningIcon.astro';
+
+type AlertType = 'caution' | 'important' | 'note' | 'tip' | 'warning';
+
+const defaultClasses: Record<AlertType, string> = {
+    caution: 'text-red-500x',
+    important: 'text-purple-500x',
+    note: 'text-blue-50x0',
+    tip: 'text-green-500x',
+    warning: 'text-yellow-500x',
+};
+
+interface Props {
+	type?: AlertType;
+    title?: string;
+}
+
+const { type = 'note', title: inputTitle } = Astro.props;
+
+const classes = defaultClasses[type];
+const title = inputTitle ?? type.charAt(0).toUpperCase() + type.slice(1);
+---
+
+<blockquote class:list={["alert", type, classes]}>
+    <span class="flex font-bold items-center gap-x-2 py-4 leading-none text-[--title-color]">
+        {type === 'caution' && <CautionIcon height={16} />}
+        {type === 'important' && <ImportantIcon height={16} />}
+        {type === 'note' && <NoteIcon height={16} />}
+        {type === 'tip' && <TipIcon height={16} />}
+        {type === 'warning' && <WarningIcon height={16} />}
+
+        {title}
+    </span>
+
+    <slot />
+</blockquote>
+
+<style lang="scss" is:global>
+    blockquote.alert {
+        font-style: normal;
+        font-weight: 400;
+
+        &.caution {
+            --tw-prose-quote-borders: theme("colors.red.700") !important;
+            --title-color: theme("colors.red.700") !important;
+        }
+
+        &.important {
+            --tw-prose-quote-borders: theme("colors.purple.700") !important;
+            --title-color: theme("colors.purple.700") !important;
+        }
+
+        &.note {
+            --tw-prose-quote-borders: theme("colors.blue.700") !important;
+            --title-color: theme("colors.blue.700") !important;
+        }
+
+        &.tip {
+            --tw-prose-quote-borders: theme("colors.green.700") !important;
+            --title-color: theme("colors.green.700") !important;
+        }
+
+        &.warning {
+            --tw-prose-quote-borders: theme("colors.yellow.700") !important;
+            --title-color: theme("colors.yellow.700") !important;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            &.caution {
+                --tw-prose-quote-borders: theme("colors.red.500") !important;
+                --title-color: theme("colors.red.500") !important;
+            }
+
+            &.important {
+                --tw-prose-quote-borders: theme("colors.purple.500") !important;
+                --title-color: theme("colors.purple.500") !important;
+            }
+
+            &.note {
+                --tw-prose-quote-borders: theme("colors.blue.500") !important;
+                --title-color: theme("colors.blue.500") !important;
+            }
+
+            &.tip {
+                --tw-prose-quote-borders: theme("colors.green.500") !important;
+                --title-color: theme("colors.green.500") !important;
+            }
+
+            &.warning {
+                --tw-prose-quote-borders: theme("colors.yellow.500") !important;
+                --title-color: theme("colors.yellow.500") !important;
+            }
+        }
+
+        p {
+            &::before {
+                content: unset !important;                
+            }
+
+            &::after {
+                content: unset !important;
+            }
+        }
+    }
+</style>

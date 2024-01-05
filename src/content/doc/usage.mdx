@@ -1,10 +1,29 @@
 ---
-title: Start the server
+title: Usage
+short-title: Usage
 description: 'In this section, we will start the server and manage our first process.'
 order: 2
 ---
 
+import Alert from '../../components/Alert.astro'
+
 In this section, we will start the server and manage our first process.
+
+## Help
+
+To get a list of all the available commands, run:
+
+```bash
+kurv --help # or just kurv
+```
+
+## Version
+
+To get the version of the binary, run:
+
+```bash
+kurv --version
+```
 
 ## Start the server
 
@@ -14,7 +33,7 @@ To get the server rolling, type:
 kurv server
 ```
 
-**IMPORTANT**
+<Alert type="important">
 - <b className="font-serif">kurv</b> will create a file called `.kurv` where it will store the current
 state of the server. The file will be created in the same directory where
 the binary is located or in the path specified by the `KURV_HOME_KEY`
@@ -25,12 +44,13 @@ to run it as a server, you need to set the `KURV_SERVER` environment
 to `true`. This is just a safety measure to prevent you from running
 the server when you actually want to run the client.
 To bypass this, you can use the `--force` flag (`kurv server --force`)
+</Alert>
 
 ## Collect some eggs!
 To deploy/start/daemonize an app (collect an egg), do:
 
 ```bash
-kurv collect <egg-cfg-path>
+kurv collect path/to/egg-config.kurv
 ```
 
 The path should point to a YAML file that contains the configuration for the egg. 
