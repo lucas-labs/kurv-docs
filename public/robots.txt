@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kurv.lucode.ar/sitemap-index.xml
