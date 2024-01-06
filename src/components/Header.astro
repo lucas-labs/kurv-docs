@@ -29,7 +29,7 @@ const { prev, next, logoSize = 'large'  } = Astro.props;
     class="flex items-center justify-center"
   >
     {prev ?
-      <HeaderLink href={prev?.slug} title={prev?.shortTitle} type="prev" />
+      <HeaderLink href={`/${prev?.slug}`} title={prev?.shortTitle} type="prev" />
       : next ? <HeaderLink href={'/'} title={'Home'} type="prev" /> : <div class="flex-1"/>
     }
     <h1>
@@ -40,6 +40,6 @@ const { prev, next, logoSize = 'large'  } = Astro.props;
         }}/>
       </a>
     </h1>
-    <HeaderLink href={next?.slug} title={next?.shortTitle} type="next" />
+    <HeaderLink href={`/${next?.slug}`} title={next?.shortTitle} type="next" />
   </div>
 </header>
