@@ -9,7 +9,7 @@ interface Props {
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
-const { title, description, image = '/kurv-p.jpg' } = Astro.props;
+const { title, description, image = '/kurv-p.png' } = Astro.props;
 ---
 
 <!-- Global Metadata -->
@@ -32,6 +32,7 @@ const { title, description, image = '/kurv-p.jpg' } = Astro.props;
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={new URL(image, Astro.url)} />
+<meta property="og:site_name" content={'kurv'} />
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
